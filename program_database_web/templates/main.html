@@ -1,0 +1,54 @@
+<!--
+    Name: Jordyn Kuhn
+    Date: 2/11/23
+    CRN: 23199
+    CIS 226: Advanced Python Programming
+    Time Estimate: 2 hours
+'''-->
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <h1>Add Vegetable</h1>
+    <h2>
+      Hi! Enter a quantity and a vegetable to add it to the table.
+      <br>You can update a value by typing the same name and providing a new quantity.
+      <br>To delete a value type the same name and update the quantity to -1.
+    </h2>
+    <form method="POST">
+      <label>Vegetable Name: <input type="text" name="name" value="{{ name }}"></label>
+      <label>Quantity: <input type="number" name="quantity" value="{{ quantity }}"></label>
+      <button type="submit">Add</button>
+    </form>
+    <hr>
+    <table>
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th style="text-align: right;">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quantity, name in vegetables %}
+          <tr>
+            <td>{{ name }}</td>
+            <td style="text-align: right;">{{ quantity }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

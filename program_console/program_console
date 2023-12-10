@@ -1,0 +1,90 @@
+'''
+-----DESIGN-----
+I will solve the problem by opening a text file, going through it line by line until
+I find the search term and printing it out.
+I solved the problem by opening a text file, going through it line by line until
+I find the search term and printing it out, and making sure that most errors that could be sent to
+the user are user friendly and direct them on what to do to continue.
+I tested by making sure it opened the right file, could handle different files, printed out the right lines, 
+could handle different search terms, and sent the right error/warning messages out when an error occurred.
+My code takes two arguments, a file and a seach term, and uses them to read the file and search
+through it until it finds the search term. When it finds the search term it prints out the line
+that contains it.
+
+'''
+'''
+-----USER DOCUMENTATION-----
+When running the file add the file path and the search term in that order.
+It will take the directed file and find the line with the term.
+
+If there are too many or not enough arguments it will say missing arguments, make sure
+there are no extra arguments or that both arguments are included.
+If it cannot read a file, it will say that the file is not able to be opened,
+make sure that the file path is correct and leads to a readable text file.
+
+'''
+'''
+Name: Jordyn Kuhn
+Date: 1/12/23
+CRN: 23199
+CIS 226: Advanced Python Programming
+Time Estimate: 4 hours
+'''
+
+import sys
+
+#main
+def main():
+    #check for arguments; return warning if none 
+    if len(sys.argv) != 3:
+        print("Missing arguments, please provide a text file and then your search.")
+        quit()
+
+    search_text = sys.argv[1]
+    filename = sys.argv[2]
+    
+    #run the function that searches for and prints the results
+    find_search(search_text, filename)
+
+    #run the test code
+    #pytest(search_text, filename)
+
+
+#go through the text file and find the search text
+def find_search(search_text, filename):  
+
+    #string to hold results
+    wordline = ""
+
+    #check file is accessible
+    try: open(filename)
+    except:
+        print("File not able to be opened, try checking that the file path is correct and try again.")
+        quit()
+
+    #open file
+    with open(filename) as textfile:
+        #find the searched for text
+        for line in textfile.readlines():
+           if str(search_text) in line:
+                wordline = line
+
+    #checks if results were found, prints results
+    if len(wordline) <= 0:
+        print("Search not in text file.")
+    else:
+        print(wordline)
+
+#test the codes error outputs
+def pytest(search_text, filename):
+    print("--------TEST RESULTS---------")
+
+    # try a search term that is not in the file to test that it prints that its not in the file
+    find_search("djakflsdf", filename)
+
+    # try a broken path to test that the error message is the user-friendly one
+    find_search(search_text, 4)
+    
+
+if __name__ == '__main__':
+    main()
